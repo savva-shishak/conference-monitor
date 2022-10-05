@@ -70,16 +70,20 @@ export function Rooms({ onSelectRoom, onSelectSession }) {
                       </a>
                     )
                     : 'Нет',
-                lastSession:(
+                lastSession: (
                   <a
                     onClick={(e) => {
                       e.preventDefault();
-                      onSelectSession(lastSession.id);
+                      if (lastSession) {
+                        onSelectSession(lastSession.id);
+                      }
                     }}
                   >
                     {activeSession
                       ? 'Открыта'
-                      : moment(lastSession.finished).format('[Окончена] LT DD.MM.YY')
+                      : lastSession
+                        ? moment(lastSession.finished).format('[Окончена] LT DD.MM.YY')
+                        : 'Открывается...'
                     }
                   </a>
                 ),
